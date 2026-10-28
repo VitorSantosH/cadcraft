@@ -164,9 +164,10 @@ fn typed(code: i32, text: &str) -> Value {
 const BINARY_SENTINEL: &[u8] = b"AutoCAD Binary DXF\r\n\x1a\0";
 /// Most group codes read from one file. A `Tag` takes 40 bytes plus its text, so this bounds the
 /// tag list to a few GB; real drawings stay far below (a 10 MB DWG is typically a few million).
-/// Raised from 50,000,000 to 10% above the largest real drawing seen (61,031,066 group codes, a
-/// 132 MB DWG with survey data), so such drawings open.
-pub const MAX_TAGS: usize = 67_134_173;
+/// Raised from 50,000,000 to 67,134,173 (10% above a 132 MB DWG with 61,031,066 group codes), and
+/// then to 270,000,000: a 127 MB DWG had 67,208,216, and the 3 GB DXF limit of the DWG reader holds
+/// about that many (some 88 million group codes per GB of DXF).
+pub const MAX_TAGS: usize = 270_000_000;
 
 mod codepage;
 pub use codepage::decode_code_page;

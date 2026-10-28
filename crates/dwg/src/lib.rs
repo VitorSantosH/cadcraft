@@ -34,8 +34,9 @@ pub struct Limits {
 }
 
 impl Limits {
-    /// 512 MB of DWG, 1 GB of DXF (more than the DXF reader's group-code limit fills).
-    pub const DEFAULT: Limits = Limits { max_dwg_bytes: 512 << 20, max_dxf_bytes: 1 << 30 };
+    /// 512 MB of DWG, 3 GB of DXF. Raised from 1 GB: real 166-292 MB drawings (survey data) passed 1 GB
+    /// of DXF; at about 6x, the 300 MB the reader is fed comes to 1.8 GB, and 3 GB leaves margin.
+    pub const DEFAULT: Limits = Limits { max_dwg_bytes: 512 << 20, max_dxf_bytes: 3 << 30 };
 }
 
 /// A byte count in megabytes for messages ("9.9 MB", "1024 MB").
